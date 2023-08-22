@@ -1,8 +1,10 @@
 package com.uma.projectpustakawan
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
@@ -60,12 +62,30 @@ class MainActivity : AppCompatActivity() {
 
     //step 7 membuat perintah untuk hapus database
     private fun deleteData(pustakawan: Pustakawan) {
-        CoroutineScope(Dispatchers.IO).launch {
-            db.pustakawanDAO().hapusData(pustakawan)
-            finish()
-            startActivity(intent)
+
+        val dialog = AlertDialog.Builder(this)
+        dialog.apply {
+            setTitle("Konfirmasi hapus data")
+
+            setMessage("Apakah anda yakin akan menghapus data? ${pustakawan.nama_pustakawan}?")
+
+            setNegativeButton("Cancel"){ //tombol cancel
+                dialogInterface: DialogInterface, i: Int ->
+                dialogInterface.dismiss()
+            }
+            setPositiveButton("Hapus"){
+                dialogInterface: DialogInterface, i: Int ->
+                dialogInterface.dismiss()
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    db.pustakawanDAO().hapusData(pustakawan)
+                    finish()
+                    startActivity(intent)
+                }
+                tampilSemuaData()
+            }
+            dialog.show()
         }
-        tampilSemuaData()
     }
 
     override fun onResume() {

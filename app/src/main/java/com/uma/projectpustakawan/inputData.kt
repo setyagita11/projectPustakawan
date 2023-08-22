@@ -57,11 +57,11 @@ class inputData : AppCompatActivity() {
             }
         }
 
-        this.setTangalPustakawan()
+        this.setTangalRegister()
 
     }
 
-    private fun setTangalPustakawan() {
+    private fun setTangalRegister() {
         this.setTanggal()
         binding.txtTanggal.setOnClickListener {
             var cal = Calendar.getInstance()
