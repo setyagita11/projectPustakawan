@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">projectPustakawan</string>
+    <string-array name="planets_array">
+        <item>Pustakawan</item>
+        <item>Admin</item>
+    </string-array>
+</resources>
